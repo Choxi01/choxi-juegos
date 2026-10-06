@@ -1,0 +1,6 @@
+{
+  "name": "choxi-juegos",
+  "private": true,
+  "description": "Lanzador PWA de los juegos Choxi (estática, GitHub Pages)",
+  "scripts": { "test": "node tests/catalogo.test.js" }
+}
