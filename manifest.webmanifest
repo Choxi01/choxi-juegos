@@ -1,0 +1,26 @@
+{
+  "name": "Choxi Juegos",
+  "short_name": "Choxi",
+  "description": "Todos los juegos de Choxi en un solo lugar",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14111f",
+  "theme_color": "#14111f",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Cartas Contra la Humanidad", "short_name": "CAH", "url": "./?abrir=cah",
+      "icons": [{ "src": "icons/atajo-cah.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Una Choxi", "short_name": "UNO", "url": "./?abrir=uno",
+      "icons": [{ "src": "icons/atajo-uno.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Flip 7", "short_name": "Flip 7", "url": "./?abrir=flip7",
+      "icons": [{ "src": "icons/atajo-flip7.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Choxipolio", "short_name": "Choxipolio", "url": "./?abrir=monopoly",
+      "icons": [{ "src": "icons/atajo-monopoly.png", "sizes": "96x96", "type": "image/png" }] }
+  ]
+}

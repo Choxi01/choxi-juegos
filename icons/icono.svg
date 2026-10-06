@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Ícono propio de Choxi Juegos: tres cartas en abanico y un dado. -->
+  <rect width="512" height="512" rx="112" fill="#14111f"/>
+  <g transform="translate(256 300)">
+    <rect x="-78" y="-200" width="156" height="220" rx="22" fill="#17a589" transform="rotate(-22)"/>
+    <rect x="-78" y="-200" width="156" height="220" rx="22" fill="#ffc83d" transform="rotate(0)"/>
+    <rect x="-78" y="-200" width="156" height="220" rx="22" fill="#ff5a36" transform="rotate(22)"/>
+    <g transform="rotate(22)">
+      <text x="0" y="-62" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="124" fill="#14111f">C</text>
+    </g>
+  </g>
+  <g transform="translate(330 352) rotate(-12)">
+    <rect x="-56" y="-56" width="112" height="112" rx="22" fill="#f6f1e7" stroke="#14111f" stroke-width="10"/>
+    <circle cx="-24" cy="-24" r="11" fill="#14111f"/>
+    <circle cx="0" cy="0" r="11" fill="#14111f"/>
+    <circle cx="24" cy="24" r="11" fill="#14111f"/>
+  </g>
+</svg>
