@@ -20,9 +20,9 @@ https://choxi01.github.io/choxi-juegos/ — Todo en español rioplatense con vos
 - La URL de truco es `/TrucoApp/` (el repo se llama `Choxi01/TrucoApp`), no `/truco/`.
 
 ## Estado (2026-10-05)
-V1 publicada. Disponibles: cah, uno, virus, flip7, monopoly, lobos, truco.
-Próximamente: asesino (el servidor ya responde, falta decidir si se habilita), mazmorra (no desplegada en Render).
+V1 publicada. Disponibles: cah, uno, virus, flip7, monopoly, asesino, lobos, truco.
+Próximamente: mazmorra (no desplegada en Render).
 
 ## Pendientes
-- Habilitar `asesino` y `mazmorra` cuando estén listos (cambiar `estado` en `juegos.json`).
+- Habilitar `mazmorra` cuando esté desplegada (cambiar `estado` en `juegos.json`).
 - Link de vuelta al hub dentro de cada juego (cambio en cada repo; fuera de alcance por ahora).

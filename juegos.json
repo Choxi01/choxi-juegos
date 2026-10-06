@@ -22,7 +22,7 @@
   { "id": "asesino", "nombre": "Asesino Choxi", "emoji": "🔪",
     "descripcion": "¿Quién será el asesino? Deducilo antes que nadie", "jugadores": "3–8",
     "tipo": "online", "url": "https://asesino-choxi.onrender.com",
-    "estado": "proximamente", "color": "#6a1b2a" },
+    "estado": "disponible", "color": "#6a1b2a" },
   { "id": "mazmorra", "nombre": "Mazmorra Relámpago", "emoji": "⚡",
     "descripcion": "Cinco minutos para salir vivos de la mazmorra", "jugadores": "1–5",
     "tipo": "en-persona", "url": "https://mazmorra-relampago.onrender.com",
