@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Choxi Juegos</title>
+  <meta name="description" content="Todos los juegos de Choxi en un solo lugar">
+  <meta name="theme-color" content="#14111f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Choxi">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="marca">
+      <img src="icons/icono.svg" alt="" class="logo" width="44" height="44">
+      <div>
+        <p class="nombre" id="nombre">Choxi Juegos</p>
+        <h1 id="titulo">¿A qué jugamos?</h1>
+      </div>
+    </div>
+    <p class="subtitulo" id="subtitulo"></p>
+    <div class="barra">
+      <button class="boton" id="btn-elegir" type="button">Elegir mis juegos</button>
+      <button class="boton" id="btn-compartir" type="button">Compartir esta selección</button>
+      <button class="boton boton-acento" id="btn-instalar" type="button" hidden>Instalar</button>
+    </div>
+    <p class="filtro" id="filtro" hidden></p>
+  </header>
+
+  <main>
+    <ul class="grilla" id="grilla" aria-live="polite"></ul>
+    <p class="vacio" id="error" hidden></p>
+  </main>
+
+  <div class="cartel-ios" id="cartel-ios" hidden>
+    <p>Para instalarla en el iPhone: tocá <strong>Compartir</strong> <span aria-hidden="true">⬆️</span> y después <strong>Agregar a inicio</strong>.</p>
+    <button class="cerrar" id="cerrar-ios" type="button" aria-label="Cerrar">✕</button>
+  </div>
+
+  <dialog class="hoja" id="hoja-elegir">
+    <form method="dialog">
+      <h2>Elegí tus juegos</h2>
+      <p class="ayuda">Dejá marcados solo los que usás. Se guarda en este celu.</p>
+      <div class="lista-elegir" id="lista-elegir"></div>
+      <div class="acciones">
+        <button class="boton" type="button" id="marcar-todos">Marcar todos</button>
+        <button class="boton boton-acento" value="guardar">Listo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="aviso" id="aviso" role="status" hidden></div>
+
+  <script src="js/catalogo.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

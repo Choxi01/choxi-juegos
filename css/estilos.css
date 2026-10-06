@@ -1,0 +1,151 @@
+/* Choxi Juegos — mobile-first. Las tarjetas toman el color de cada juego (--color). */
+:root {
+  --fondo: #f6f1e7;
+  --tinta: #1d1a26;
+  --suave: #6b6577;
+  --linea: #ddd5c6;
+  --boton: #ffffff;
+  --acento: #ff5a36;
+  --acento-tinta: #ffffff;
+  --sombra: 0 2px 0 rgba(29, 26, 38, .18), 0 10px 24px -12px rgba(29, 26, 38, .35);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #14111f;
+    --tinta: #f3eee6;
+    --suave: #a49db3;
+    --linea: #2e2940;
+    --boton: #221d33;
+    --sombra: 0 2px 0 rgba(0, 0, 0, .5), 0 12px 28px -14px rgba(0, 0, 0, .9);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--fondo);
+  color: var(--tinta);
+  font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+           max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  touch-action: manipulation;
+}
+button { font: inherit; color: inherit; }
+
+/* ---------- Cabecera ---------- */
+.cabecera { max-width: 1100px; margin: 0 auto 18px; }
+.marca { display: flex; align-items: center; gap: 12px; }
+.logo { border-radius: 12px; flex: none; }
+.nombre { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--acento); }
+h1 { margin: 0; font-size: clamp(26px, 7vw, 38px); line-height: 1.05; font-weight: 900; letter-spacing: -.02em; }
+.subtitulo { margin: 10px 0 14px; color: var(--suave); font-size: 15px; max-width: 46ch; }
+.barra { display: flex; flex-wrap: wrap; gap: 8px; }
+.boton {
+  min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--linea); border-radius: 999px;
+  background: var(--boton); font-weight: 600; font-size: 15px; cursor: pointer;
+}
+.boton:active { transform: translateY(1px); }
+.boton-acento { background: var(--acento); color: var(--acento-tinta); border-color: transparent; }
+.filtro { margin: 12px 0 0; font-size: 14px; color: var(--suave); }
+.link { background: none; border: 0; padding: 4px 0; color: var(--acento); font-weight: 700; text-decoration: underline; cursor: pointer; }
+
+/* ---------- Grilla ---------- */
+main { max-width: 1100px; margin: 0 auto; }
+.grilla {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 640px) { .grilla { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
+@media (min-width: 960px) { .grilla { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.grilla li { position: relative; display: flex; }
+.tarjeta {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 4px;
+  min-height: 190px; padding: 14px 14px 12px;
+  border-radius: 20px;
+  color: #fff; text-decoration: none;
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(255, 255, 255, .22), transparent 55%),
+    linear-gradient(160deg, var(--color), color-mix(in srgb, var(--color) 70%, #000));
+  box-shadow: var(--sombra);
+  transition: transform .12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+a.tarjeta:active { transform: scale(.97); }
+@media (hover: hover) { a.tarjeta:hover { transform: translateY(-2px); } }
+a.tarjeta:focus-visible, .nueva-pestana:focus-visible, .boton:focus-visible { outline: 3px solid var(--acento); outline-offset: 3px; }
+
+.emoji { font-size: 40px; line-height: 1; margin-bottom: 6px; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .25)); }
+.nombre-juego { font-weight: 800; font-size: 17px; line-height: 1.15; }
+.desc { font-size: 13px; opacity: .85; line-height: 1.3; }
+.pie { margin-top: auto; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px; }
+.etiqueta { padding: 3px 8px; border-radius: 999px; background: rgba(255, 255, 255, .2); font-weight: 700; letter-spacing: .02em; }
+.etiqueta-en-persona { background: rgba(255, 214, 102, .3); }
+.etiqueta-app { background: rgba(0, 0, 0, .25); }
+.jugadores { opacity: .9; }
+.estado { font-size: 12px; font-weight: 600; opacity: .95; min-height: 1.4em; }
+
+/* Juegos que todavía no están: en gris y sin poder tocar */
+.apagada { filter: grayscale(1); opacity: .45; cursor: not-allowed; }
+.apagada .estado { display: inline-block; align-self: flex-start; padding: 2px 8px; border-radius: 6px; background: rgba(0, 0, 0, .35); }
+
+/* Botoncito "abrir en pestaña nueva": útil en la compu */
+.nueva-pestana {
+  position: absolute; top: 8px; right: 8px;
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(0, 0, 0, .28); color: #fff; text-decoration: none; font-weight: 700;
+  opacity: .75;
+}
+.nueva-pestana:hover { opacity: 1; }
+
+.vacio { text-align: center; color: var(--suave); padding: 40px 0; }
+
+/* ---------- Elegir mis juegos ---------- */
+.hoja {
+  width: min(480px, calc(100vw - 32px)); max-height: 85vh;
+  border: 0; border-radius: 22px; padding: 20px;
+  background: var(--fondo); color: var(--tinta);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+}
+.hoja::backdrop { background: rgba(10, 8, 18, .55); }
+.hoja h2 { margin: 0 0 4px; font-size: 22px; }
+.ayuda { margin: 0 0 12px; color: var(--suave); font-size: 14px; }
+.lista-elegir { display: grid; gap: 6px; }
+.opcion {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 48px; padding: 6px 12px;
+  border: 1px solid var(--linea); border-radius: 14px; background: var(--boton); cursor: pointer;
+}
+.opcion input { width: 22px; height: 22px; accent-color: var(--acento); flex: none; }
+.opcion .emoji { font-size: 22px; margin: 0; }
+.opcion small { color: var(--suave); }
+.acciones { display: flex; justify-content: space-between; gap: 8px; margin-top: 16px; }
+
+/* ---------- Avisos ---------- */
+.aviso {
+  position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: max-content; max-width: calc(100vw - 32px);
+  padding: 12px 16px; border-radius: 14px;
+  background: var(--tinta); color: var(--fondo);
+  font-weight: 600; font-size: 14px; text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35); z-index: 10;
+}
+.cartel-ios {
+  position: fixed; left: 16px; right: 16px; bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 14px 14px 14px 16px; border-radius: 16px;
+  background: var(--boton); border: 1px solid var(--linea); box-shadow: var(--sombra);
+  font-size: 14px; z-index: 9;
+}
+.cartel-ios p { margin: 0; flex: 1; }
+.cerrar { background: none; border: 0; font-size: 18px; min-width: 32px; min-height: 32px; cursor: pointer; }
+[hidden] { display: none !important; }
