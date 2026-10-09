@@ -27,7 +27,7 @@ Si alguien quiere un solo juego, lo instala directo desde la URL de ese juego, c
 - **Compartir esta selección**: arma ese link con lo que estás viendo y lo comparte (o lo copia).
 - `?todos` borra la selección y vuelve a mostrar todo.
 
-Ids actuales: `cah`, `uno`, `virus`, `flip7`, `monopoly`, `asesino`, `mazmorra`, `lobos`, `truco`.
+Ids actuales: `cah`, `uno`, `virus`, `flip7`, `monopoly`, `asesino`, `codigo`, `mazmorra`, `expediente`, `lobos`, `truco`.
 
 ## Agregar o cambiar un juego
 Todo está en [`juegos.json`](juegos.json): una entrada por juego, sin tocar código.
