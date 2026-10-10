@@ -34,7 +34,7 @@
   { "id": "expediente", "nombre": "Expediente Choxi", "emoji": "🗂️",
     "descripcion": "Casos de homicidio: leé el expediente y atrapá al culpable", "jugadores": "2–8",
     "tipo": "en-persona", "url": "https://expediente-choxi.onrender.com",
-    "estado": "proximamente", "color": "#8a6a34" },
+    "estado": "disponible", "color": "#8a6a34" },
   { "id": "lobos", "nombre": "Narrador de Lobos", "emoji": "🐺",
     "descripcion": "El celu narra la noche del pueblo", "jugadores": "6–20",
     "tipo": "app", "url": "https://choxi01.github.io/lobos/",

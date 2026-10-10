@@ -19,10 +19,10 @@ https://choxi01.github.io/choxi-juegos/ — Todo en español rioplatense con vos
 - Un link `?juegos=` con solo ids inválidos no pisa la selección guardada. Elegir todos = sin selección.
 - La URL de truco es `/TrucoApp/` (el repo se llama `Choxi01/TrucoApp`), no `/truco/`.
 
-## Estado (2026-10-09)
-V1 publicada. Disponibles: cah, uno, virus, flip7, monopoly, asesino, codigo (Codenames), lobos, truco.
-Próximamente: mazmorra (no desplegada en Render), expediente (Expediente Choxi, casos de homicidio: repo local `Expediente-Choxi` en desarrollo, sin git ni deploy; la URL `expediente-choxi.onrender.com` es la que se espera, revisarla al desplegar).
+## Estado (2026-10-10)
+V1 publicada. Disponibles: cah, uno, virus, flip7, monopoly, asesino, codigo (Codenames), expediente (Expediente Choxi, casos de homicidio), lobos, truco.
+Próximamente: mazmorra (no desplegada en Render).
 
 ## Pendientes
-- Habilitar `mazmorra` y `expediente` cuando estén desplegados (cambiar `estado` en `juegos.json` y verificar la URL).
+- Habilitar `mazmorra` cuando esté desplegada (cambiar `estado` en `juegos.json` y verificar la URL).
 - Link de vuelta al hub dentro de cada juego (cambio en cada repo; fuera de alcance por ahora).
