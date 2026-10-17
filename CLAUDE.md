@@ -22,6 +22,10 @@ https://choxi01.github.io/choxi-juegos/ — Todo en español rioplatense con vos
   El `sw.js` guarda las letras la primera vez (cache-first) para que ande offline; sin internet usa las del sistema.
   Estados de Render: lucecita por caja + una línea de resumen (`#servidores`). Estantes: juegos / herramientas (`tipo: app`).
   ↗ solo con mouse (`hover: hover`). "Próximamente" se apaga mezclando el color con gris en `app.js`, para que la faja quede a color.
+- Cada juego tiene un botón "‹ Juegos" de vuelta al hub y pide pantalla completa con el primer toque en el celu
+  (`client/src/VolverAlHub.tsx` en los online, `js/volver.js` en lobos y truco; mismo archivo en todos). La barra de
+  navegador que Android pone al abrir un dominio fuera del `scope` del hub no se puede sacar desde el hub: por eso
+  la pantalla completa la pide cada juego. En iPhone no hay pantalla completa para páginas.
 - La URL de truco es `/TrucoApp/` (el repo se llama `Choxi01/TrucoApp`), no `/truco/`.
 
 ## Estado (2026-10-17)
@@ -29,5 +33,4 @@ V1 publicada, con el rediseño "la estantería". Disponibles: cah, uno, virus, f
 Próximamente: mazmorra (no desplegada en Render).
 
 ## Pendientes
-- Habilitar `mazmorra` cuando esté desplegada (cambiar `estado` en `juegos.json` y verificar la URL).
-- Link de vuelta al hub dentro de cada juego (cambio en cada repo; fuera de alcance por ahora).
+- Habilitar `mazmorra` cuando esté desplegada (cambiar `estado` en `juegos.json` y verificar la URL) y sumarle `VolverAlHub.tsx`.
