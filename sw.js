@@ -1,6 +1,7 @@
 // Modo offline de Choxi Juegos.
 // Páginas, código y juegos.json: primero busca la versión nueva en internet (así los cambios
 // llegan solos) y, si no hay conexión, usa la guardada. Íconos: usa la copia guardada.
+// Las letras de Google Fonts se guardan la primera vez y después salen de la copia (también offline).
 // Los pings a los juegos de Render son de otro dominio: este archivo no los toca.
 const CACHE = "choxihub";
 const ARCHIVOS = [
@@ -25,7 +26,15 @@ self.addEventListener("activate", e => {
 
 self.addEventListener("fetch", e => {
   const req = e.request;
-  if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
+  if (req.method !== "GET") return;
+  if (/^fonts\.(googleapis|gstatic)\.com$/.test(new URL(req.url).hostname)) {
+    e.respondWith(caches.match(req).then(g => g || fetch(req).then(resp => {
+      if (resp.ok || resp.type === "opaque") { const copia = resp.clone(); caches.open(CACHE).then(c => c.put(req, copia)); }
+      return resp;
+    })));
+    return;
+  }
+  if (new URL(req.url).origin !== location.origin) return;
   const fijo = /\.(png|svg)$/.test(new URL(req.url).pathname);
 
   if (fijo) {

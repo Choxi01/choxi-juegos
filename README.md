@@ -9,14 +9,18 @@ Cada juego sigue siendo su propia app, con su repo y su deploy: el hub solo los 
 Si alguien quiere un solo juego, lo instala directo desde la URL de ese juego, como siempre.
 
 ## Qué hace
-- **Grilla de juegos**: dos columnas en el celu, más en la compu. Modo oscuro según el sistema.
+- **La estantería**: cada juego es la tapa de una caja, con su color y su dibujo. Dos estantes:
+  *Juegos* arriba y *Herramientas de mesa* (lobos, truco) abajo. Dos columnas en el celu, más en la compu.
+  Modo oscuro según el sistema. Al abrir, las cajas se "reparten" con una animación corta.
 - **Despierta los servidores de Render**: al abrir el hub manda un pedido silencioso a cada juego online.
-  Cada tarjeta muestra ⏳ *despertando…*, 🟢 *listo* o 🔴 *no responde*. Si tocás uno que todavía se está
+  Cada caja tiene una lucecita (amarilla que late = despertando, verde = listo, roja = no responde)
+  y arriba una sola línea resume: "Despertando servidores… 3 de 9 listos". Si tocás uno que todavía se está
   despertando, avisa "Puede tardar ~1 min la primera vez" y lo abre igual.
 - **Abre en la misma pestaña** (así, con la app instalada, no salta al navegador). Se vuelve con *atrás*.
-  En cada tarjeta hay un botoncito ↗ para abrir en pestaña nueva (cómodo en la compu).
+  En la compu, al pasar el mouse por una caja aparece un botoncito ↗ para abrirla en pestaña nueva.
 - **Orden**: primero los últimos que abriste en ese celu, después el orden de `juegos.json`.
-  Los "próximamente" van al final, en gris y sin poder tocarlos.
+  El último que abriste lleva la etiqueta **Último**. Los "próximamente" van al final, apagados,
+  con una faja amarilla y sin poder tocarlos.
 - **Accesos directos**: en Android, mantené apretado el ícono instalado → CAH, UNO, Flip 7 y Choxipolio.
 
 ## Cada uno elige sus juegos
@@ -36,13 +40,15 @@ Todo está en [`juegos.json`](juegos.json): una entrada por juego, sin tocar có
 { "id": "cah", "nombre": "Cartas Contra la Humanidad", "emoji": "🃏",
   "descripcion": "Completá la frase más bizarra", "jugadores": "4–8",
   "tipo": "online", "url": "https://cah-choxi.onrender.com",
-  "estado": "disponible", "color": "#1b1b1f" }
+  "estado": "disponible", "color": "#1b1b1f", "patron": "renglones" }
 ```
 
 - `id`: minúsculas, sin espacios ni comas (es lo que va en los links `?juegos=`).
 - `tipo`: `online` (servidor en Render, se despierta solo), `en-persona` o `app` (herramienta en GitHub Pages).
 - `estado`: `disponible` o `proximamente` (gris, no se puede tocar).
-- `color`: fondo de la tarjeta.
+- `color`: color de la caja.
+- `patron` (opcional): dibujo de la tapa. Uno de `rayas`, `rayos`, `puntos`, `cuadros`, `damero`, `zigzag`, `renglones`.
+- Los de tipo `app` van solos al estante de *Herramientas de mesa*.
 
 Después: `npm test` (revisa que el JSON esté bien), commit y push. GitHub Pages publica en 1–2 minutos
 y el celu toma la lista nueva la próxima vez que abre el hub con internet.

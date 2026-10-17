@@ -6,6 +6,8 @@
 
   const TIPOS = { online: "Online", "en-persona": "En persona", app: "Herramienta" };
   const ESTADOS = ["disponible", "proximamente"];
+  // Dibujo de fondo de cada caja (opcional en juegos.json). Los define css/estilos.css.
+  const PATRONES = ["rayas", "rayos", "puntos", "cuadros", "damero", "zigzag", "renglones"];
 
   // Lee la parte "?..." de la URL.
   //   ?abrir=cah        → { modo: "abrir", id: "cah" }
@@ -77,6 +79,16 @@
     return catalogo.find(j => j.id === params.id && j.estado === "disponible") || null;
   }
 
+  // Id del juego disponible abierto más recientemente entre los visibles, o null si nunca se usó ninguno.
+  function ultimoUsado(lista, usos) {
+    const u = usos || {};
+    let mejor = null;
+    (lista || []).forEach(j => {
+      if (j.estado === "disponible" && u[j.id] && (!mejor || u[j.id] > u[mejor])) mejor = j.id;
+    });
+    return mejor;
+  }
+
   // Link para compartir una selección. Sin selección (todos) devuelve la base limpia.
   function linkSeleccion(base, seleccion) {
     const limpio = String(base).split("?")[0].split("#")[0];
@@ -99,11 +111,12 @@
       if (!/^https?:\/\//.test(j.url || "")) errores.push(donde + ": la url tiene que empezar con http(s)://");
       if (!TIPOS[j.tipo]) errores.push(donde + ": tipo tiene que ser " + Object.keys(TIPOS).join(", "));
       if (ESTADOS.indexOf(j.estado) < 0) errores.push(donde + ": estado tiene que ser " + ESTADOS.join(" o "));
+      if (j.patron != null && PATRONES.indexOf(j.patron) < 0) errores.push(donde + ": patron tiene que ser " + PATRONES.join(", "));
     });
     return errores;
   }
 
-  const api = { TIPOS, leerParams, idsValidos, resolverSeleccion, juegosVisibles, juegoParaAbrir, linkSeleccion, validarCatalogo };
+  const api = { TIPOS, PATRONES, leerParams, idsValidos, resolverSeleccion, juegosVisibles, juegoParaAbrir, ultimoUsado, linkSeleccion, validarCatalogo };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else raiz.Catalogo = api;
 })(typeof window !== "undefined" ? window : this);

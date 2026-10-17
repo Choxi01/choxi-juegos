@@ -13,6 +13,9 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icono.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600..800&family=Nunito:wght@500;700;800&display=swap">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
@@ -26,15 +29,26 @@
     </div>
     <p class="subtitulo" id="subtitulo"></p>
     <div class="barra">
-      <button class="boton" id="btn-elegir" type="button">Elegir mis juegos</button>
-      <button class="boton" id="btn-compartir" type="button">Compartir esta selección</button>
-      <button class="boton boton-acento" id="btn-instalar" type="button" hidden>Instalar</button>
+      <button class="boton" id="btn-elegir" type="button" title="Elegir qué juegos ver en este celu">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h6"/><path d="m15 17 2 2 4-4"/></svg>Mis juegos</button>
+      <button class="boton" id="btn-compartir" type="button" title="Compartir el link con esta selección">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 15V3m0 0L7 8m5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Compartir</button>
+      <button class="boton boton-acento" id="btn-instalar" type="button" hidden>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m0 0-5-5m5 5 5-5"/><path d="M5 21h14"/></svg>Instalar</button>
     </div>
+    <p class="servidores" id="servidores" role="status" hidden></p>
     <p class="filtro" id="filtro" hidden></p>
   </header>
 
-  <main>
-    <ul class="grilla" id="grilla" aria-live="polite"></ul>
+  <main id="principal">
+    <section class="estante" aria-labelledby="t-juegos">
+      <h2 class="titulo-estante" id="t-juegos">Juegos</h2>
+      <ul class="grilla" id="grilla"></ul>
+    </section>
+    <section class="estante estante-herramientas" id="estante-herramientas" aria-labelledby="t-herramientas" hidden>
+      <h2 class="titulo-estante" id="t-herramientas">Herramientas de mesa</h2>
+      <ul class="grilla grilla-herramientas" id="grilla-herramientas"></ul>
+    </section>
     <p class="vacio" id="error" hidden></p>
   </main>
 

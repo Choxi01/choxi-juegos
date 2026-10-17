@@ -17,10 +17,15 @@ https://choxi01.github.io/choxi-juegos/ — Todo en español rioplatense con vos
 - Los `shortcuts` del manifest apuntan a `./?abrir=<id>` (Chrome ignora atajos fuera del `scope`) y `app.js` redirige.
 - Orden: disponibles usados (más reciente primero) → disponibles sin usar (orden del JSON) → próximamente.
 - Un link `?juegos=` con solo ids inválidos no pisa la selección guardada. Elegir todos = sin selección.
+- Diseño "la estantería" (2026-10-17): cada juego es una tapa de caja (`.caja`, canto con `box-shadow`, dibujo `.patron-*`
+  desde el campo `patron`), emoji como calcomanía, letras Bricolage Grotesque (títulos) y Nunito (texto) de Google Fonts.
+  El `sw.js` guarda las letras la primera vez (cache-first) para que ande offline; sin internet usa las del sistema.
+  Estados de Render: lucecita por caja + una línea de resumen (`#servidores`). Estantes: juegos / herramientas (`tipo: app`).
+  ↗ solo con mouse (`hover: hover`). "Próximamente" se apaga mezclando el color con gris en `app.js`, para que la faja quede a color.
 - La URL de truco es `/TrucoApp/` (el repo se llama `Choxi01/TrucoApp`), no `/truco/`.
 
-## Estado (2026-10-10)
-V1 publicada. Disponibles: cah, uno, virus, flip7, monopoly, asesino, codigo (Codenames), efectos (Side Effects Choxi), expediente (Expediente Choxi, casos de homicidio), lobos, truco.
+## Estado (2026-10-17)
+V1 publicada, con el rediseño "la estantería". Disponibles: cah, uno, virus, flip7, monopoly, asesino, codigo (Codenames), efectos (Side Effects Choxi), expediente (Expediente Choxi, casos de homicidio), lobos, truco.
 Próximamente: mazmorra (no desplegada en Render).
 
 ## Pendientes

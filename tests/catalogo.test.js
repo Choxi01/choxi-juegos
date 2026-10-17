@@ -58,6 +58,11 @@ prueba("último usado primero", () =>
 prueba("filtra por selección", () =>
   assert.deepEqual(ids(C.juegosVisibles(cat, ["flip7", "cah"], { flip7: 5 })), ["flip7", "cah"]));
 
+console.log("Último usado");
+prueba("marca el más reciente", () => assert.equal(C.ultimoUsado(cat, { truco: 100, uno: 200 }), "uno"));
+prueba("sin usos no marca nada", () => assert.equal(C.ultimoUsado(cat, {}), null));
+prueba("ignora próximamente", () => assert.equal(C.ultimoUsado(cat, { asesino: 999, cah: 1 }), "cah"));
+
 console.log("Accesos directos (?abrir=)");
 prueba("lee ?abrir=", () => assert.deepEqual(C.leerParams("?abrir=UNO"), { modo: "abrir", id: "uno" }));
 prueba("encuentra el juego", () => assert.equal(C.juegoParaAbrir(cat, { modo: "abrir", id: "flip7" }).id, "flip7"));
@@ -77,6 +82,11 @@ console.log("juegos.json");
 prueba("detecta errores", () => {
   const e = C.validarCatalogo([{ id: "A B", nombre: "", url: "ftp://x", tipo: "otro", estado: "ya" }]);
   assert.equal(e.length, 5);
+});
+prueba("patrón desconocido es error; sin patrón está bien", () => {
+  const base = { id: "a", nombre: "A", url: "https://a", tipo: "online", estado: "disponible" };
+  assert.equal(C.validarCatalogo([{ ...base, patron: "lunares" }]).length, 1);
+  assert.deepEqual(C.validarCatalogo([base, { ...base, id: "b", patron: "rayas" }]), []);
 });
 prueba("el juegos.json del repo está bien", () => {
   const real = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "juegos.json"), "utf8"));

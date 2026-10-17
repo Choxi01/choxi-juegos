@@ -82,18 +82,39 @@
   // Las herramientas (GitHub Pages) nunca duermen; los juegos con servidor sí.
   const duerme = j => j.estado === "disponible" && j.tipo !== "app";
 
-  const ESTADOS = {
-    despertando: ["⏳", "despertando…"],
-    listo: ["🟢", "listo"],
-    error: ["🔴", "no responde"],
-  };
+  const ESTADOS = { despertando: "despertando…", listo: "listo", error: "no responde" };
 
+  // Cada caja online tiene una lucecita; el texto completo va en una sola línea arriba.
   function pintarEstado(id) {
     const el = document.querySelector('[data-estado="' + id + '"]');
     const e = ESTADOS[despertar[id]];
-    if (!el || !e) return;
-    el.className = "estado estado-" + despertar[id];
-    el.innerHTML = '<span aria-hidden="true">' + e[0] + "</span> " + e[1];
+    if (el && e) {
+      el.className = "luz luz-" + despertar[id];
+      el.title = "Servidor: " + e;
+      el.setAttribute("aria-label", "Servidor " + e);
+    }
+    pintarResumen();
+  }
+
+  function pintarResumen() {
+    const ids = visibles().filter(duerme).map(j => j.id);
+    const el = $("servidores");
+    if (!ids.length) { el.hidden = true; return; }
+    const cuenta = { despertando: 0, listo: 0, error: 0 };
+    ids.forEach(id => { if (cuenta[despertar[id]] != null) cuenta[despertar[id]]++; });
+    let clase, texto;
+    if (cuenta.despertando) {
+      clase = "despertando";
+      texto = "Despertando servidores… " + cuenta.listo + " de " + ids.length + " listos";
+    } else if (cuenta.error) {
+      clase = "error";
+      texto = cuenta.error === 1 ? "1 servidor no responde" : cuenta.error + " servidores no responden";
+    } else {
+      clase = "listo";
+      texto = "Todos los servidores listos";
+    }
+    el.innerHTML = '<span class="luz luz-' + clase + '" aria-hidden="true"></span>' + esc(texto);
+    el.hidden = false;
   }
 
   // ---------- Render ----------
@@ -103,10 +124,28 @@
     return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   }
 
+  let primeraVez = true;
+
   function render() {
     const lista = visibles();
-    $("grilla").innerHTML = lista.map(tarjeta).join("");
+    const ultimo = C.ultimoUsado(lista, guardado.leer("usos", {}));
+    // Dos estantes: juegos arriba, herramientas de mesa (lobos, truco) abajo.
+    const juegos = lista.filter(j => j.tipo !== "app");
+    const herramientas = lista.filter(j => j.tipo === "app");
+    let i = 0;
+    $("grilla").innerHTML = juegos.map(j => tarjeta(j, i++, j.id === ultimo)).join("");
+    $("grilla-herramientas").innerHTML = herramientas.map(j => tarjeta(j, i++, j.id === ultimo)).join("");
+    $("estante-herramientas").hidden = !herramientas.length;
+    $("grilla").closest(".estante").hidden = !juegos.length;
     lista.forEach(j => pintarEstado(j.id));
+    pintarResumen();
+
+    // Animación de "repartir" solo al abrir el hub, no cada vez que se reordena.
+    if (primeraVez) {
+      primeraVez = false;
+      document.body.classList.add("repartiendo");
+      setTimeout(() => document.body.classList.remove("repartiendo"), 600 + i * 55);
+    }
 
     const f = $("filtro");
     if (seleccion) {
@@ -119,26 +158,35 @@
     }
   }
 
-  function tarjeta(j) {
+  const ICONO_PERSONAS = '<svg aria-hidden="true" viewBox="0 0 16 16"><circle cx="5.5" cy="4.5" r="2.5"/><circle cx="11" cy="5" r="2"/>' +
+    '<path d="M1 13c0-2.5 2-4.2 4.5-4.2S10 10.5 10 13v1H1zM10.6 8.6c2.3 0 4.4 1.4 4.4 3.9V14h-4v-1c0-1.7-.5-3.2-1.6-4.2z"/></svg>';
+
+  function tarjeta(j, i, esUltimo) {
     const apagada = j.estado !== "disponible";
     const tipo = C.TIPOS[j.tipo] || j.tipo;
     const cuerpo =
-      '<span class="emoji" aria-hidden="true">' + esc(j.emoji || "🎮") + "</span>" +
+      '<span class="sticker" aria-hidden="true">' + esc(j.emoji || "🎮") + "</span>" +
       '<span class="nombre-juego">' + esc(j.nombre) + "</span>" +
       (j.descripcion ? '<span class="desc">' + esc(j.descripcion) + "</span>" : "") +
       '<span class="pie">' +
-        '<span class="etiqueta etiqueta-' + esc(j.tipo) + '">' + esc(tipo) + "</span>" +
-        (j.jugadores ? '<span class="jugadores">👥 ' + esc(j.jugadores) + "</span>" : "") +
+        (j.tipo !== "app" ? '<span class="etiqueta etiqueta-' + esc(j.tipo) + '">' + esc(tipo) + "</span>" : "") +
+        (j.jugadores ? '<span class="jugadores">' + ICONO_PERSONAS + " " + esc(j.jugadores) +
+          '<span class="sr"> jugadores</span></span>' : "") +
+        (duerme(j) ? '<span class="luz" data-estado="' + esc(j.id) + '" role="img"></span>' : "") +
       "</span>" +
-      (apagada ? '<span class="estado">Próximamente</span>'
-        : duerme(j) ? '<span class="estado" data-estado="' + esc(j.id) + '"></span>' : "");
+      (apagada ? '<span class="cinta"><span>Próximamente</span></span>' : "");
 
-    const estilo = ' style="--color:' + esc(j.color || "#333") + '"';
+    // "Próximamente" llega con el color mezclado con gris: la cinta de arriba sí queda a todo color.
+    const color = esc(j.color || "#333");
+    const estilo = ' style="--i:' + i + ";--color:" + (apagada ? "color-mix(in srgb," + color + " 30%,#5d5866)" : color) + '"';
+    const clases = "caja" + (C.PATRONES.indexOf(j.patron) >= 0 ? " patron-" + j.patron : "");
+    // El --i va en el <li> para escalonar la animación de entrada.
+    const li = '<li style="--i:' + i + '">';
     if (apagada) {
-      return '<li><div class="tarjeta apagada" aria-disabled="true"' + estilo + ">" + cuerpo + "</div></li>";
+      return li + '<div class="' + clases + ' apagada" aria-disabled="true"' + estilo + ">" + cuerpo + "</div></li>";
     }
-    return '<li class="con-extra">' +
-      '<a class="tarjeta" href="' + esc(j.url) + '" data-abrir="' + esc(j.id) + '"' + estilo + ">" + cuerpo + "</a>" +
+    return li + (esUltimo ? '<span class="ultimo">Último</span>' : "") +
+      '<a class="' + clases + '" href="' + esc(j.url) + '" data-abrir="' + esc(j.id) + '"' + estilo + ">" + cuerpo + "</a>" +
       '<a class="nueva-pestana" href="' + esc(j.url) + '" target="_blank" rel="noopener" data-nueva="' + esc(j.id) +
         '" title="Abrir en pestaña nueva" aria-label="Abrir ' + esc(j.nombre) + ' en pestaña nueva">↗</a>' +
       "</li>";
@@ -151,7 +199,7 @@
     guardado.escribir("usos", usos);
   }
 
-  $("grilla").addEventListener("click", ev => {
+  $("principal").addEventListener("click", ev => {
     const nueva = ev.target.closest("[data-nueva]");
     if (nueva) { marcarUso(nueva.dataset.nueva); setTimeout(render, 300); return; }
 
