@@ -29,7 +29,7 @@ https://choxi01.github.io/choxi-juegos/ — Todo en español rioplatense con vos
 - La URL de truco es `/TrucoApp/` (el repo se llama `Choxi01/TrucoApp`), no `/truco/`.
 
 ## Estado (2026-10-17)
-V1 publicada, con el rediseño "la estantería". Disponibles: cah, uno, virus, flip7, monopoly, asesino, codigo (Codenames), efectos (Side Effects Choxi), expediente (Expediente Choxi, casos de homicidio), lobos, truco.
+V1 publicada, con el rediseño "la estantería". Disponibles: cah, uno, virus, flip7, monopoly, asesino, codigo (Codenames), efectos (Side Effects Choxi), expediente (Expediente Choxi, casos de homicidio), infiltrado (Infiltrado Choxi, PWA `tipo: app`), lobos, truco.
 Próximamente: mazmorra (no desplegada en Render).
 
 ## Pendientes
